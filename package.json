@@ -1,5 +1,16 @@
 {
+  "type": "module",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3"
+  },
+  "scripts": {
+    "start": "concurrently \"npm run start-frontend\" \"npm run start-backend\"",
+    "start-backend": "cross-env NODE_ENV=production node backend/server.js",
+    "start-frontend": "cd client && npm start"
   }
 }
