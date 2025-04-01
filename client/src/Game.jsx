@@ -7,4 +7,3 @@ const [gameover, setGameover] = useState(false);
 }
 
 const correctWord = "hello";
-

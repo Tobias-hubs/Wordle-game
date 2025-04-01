@@ -1,5 +1,5 @@
 // const { chooseWord, controllGuess } = require('./game/gameLogic.js');
-import { chooseWord, controllGuess } from './game/gameLogic.js';
+import { chooseWord, controllGuess } from './gameLogic.js';
 
 
 describe("controllGuess - Test of feedback results", () => {
