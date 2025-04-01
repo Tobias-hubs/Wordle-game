@@ -1,4 +1,6 @@
+// const { chooseWord, controllGuess } = require('./game/gameLogic.js');
 import { chooseWord, controllGuess } from './game/gameLogic.js';
+
 
 describe("controllGuess - Test of feedback results", () => {
 
@@ -67,3 +69,5 @@ describe("chooseWord - Test of the word selection", () => {
     });
 
 });
+    
+    
