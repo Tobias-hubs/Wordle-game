@@ -3,7 +3,8 @@ import { dirname } from 'path';
 import express from "express";
 import cors from "cors";
 import path from "path";
-// import { gameLogic } from "./game/gameLogic.js"; 
+import { gameLogic } from "./game/gameLogic.js";
+console.log(gameLogic.startGame());
 
 const app = express();
 const port = 5080;
