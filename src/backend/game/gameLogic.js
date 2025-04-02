@@ -1,6 +1,5 @@
 //Code from previous project Testade-algorithmer
 
-
 export function controllGuess(guess, correctWord) { 
     let feedback = [];
     
@@ -22,10 +21,13 @@ export function controllGuess(guess, correctWord) {
             } else {
                 feedback[i].result = "incorrect";
         }
-    } 
+      } 
     }   
 
-    return feedback; 
+    // Check if guess i completely correct
+    const isGameOver = feedback.every(f => f.result === "correct");
+
+    return {feedback, isGameOver}; 
 
    
 }
@@ -48,3 +50,4 @@ export function chooseWord(wordList, length, specialLetters)   {
         return validWords[randomIndex];
     
 }
+

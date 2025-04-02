@@ -3,8 +3,10 @@ import { dirname } from 'path';
 import express from "express";
 import cors from "cors";
 import path from "path";
-import { gameLogic } from "./game/gameLogic.js";
-console.log(gameLogic.startGame());
+import fs from "fs";
+// import { gameLogic } from "./game/gameLogic.js";
+import { controllGuess, chooseWord } from "./game/gameLogic.js";
+// console.log(gameLogic.startGame());
 
 const app = express();
 const port = 5080;
@@ -13,6 +15,13 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 app.use(cors());
+
+//Timer for the game
+let startTime; 
+app.post("/startGame", (req, res) => {
+    startTime = Date.now();  // Start timer
+    res.status(200).json({ message: "Game started" });
+});
 
 app.get("/api/test", (req, res) => {
     res.json({ message: "Hello from the server.js!" });
@@ -29,6 +38,28 @@ app.get("/", (req, res) => {
 // app.get("*", (req, res) => {
 //     res.sendFile(path.join(__dirname, "../client/build/index.html"));
 // });
+
+app.post("/endGame", (req, res) => {
+    let endTime = Date.now();
+    let timeTaken = endTime - startTime; 
+    res.status(200).json({ message: `Game over. Time taken: ${timeTaken}ms`, timeTaken });
+});
+
+// JSON test highscore 
+app.post("/submitHighscore", (req, res) => {
+    const { name, time, guesses, wordLenght, specialLetters } = req.body;
+
+    let highscores = [];
+    if (fs.existsSync("highscores.json")) {
+        highscores = JSON.parse(fs.readFileSync("highscores.json"));
+    }
+highscores.push({ name, time, guesses, wordLenght, specialLetters });
+
+fs.writeFileSync("highscores.json", JSON.stringify(highscores, null, 2));
+
+res.status(200).json({ message: "Highscore saved", highscores });
+});
+
 
 app.listen(port, () => {
     console.log(`Server is running on port http://localhost:${port}`);
