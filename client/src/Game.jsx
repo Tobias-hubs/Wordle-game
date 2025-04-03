@@ -57,7 +57,7 @@ function Game() {
         const endTime = Date.now();
         const timeTaken = endTime - startTime;
 
-        await fetch("http://localhost:5000/submitHighscore", {
+        await fetch("http://localhost:5080/submitHighscore", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

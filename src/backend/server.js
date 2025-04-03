@@ -17,11 +17,15 @@ const __dirname = dirname(__filename);
 app.use(cors());
 app.use(express.json()); 
 
-//Timer for the game
+
 let startTime; 
+let correctWord; 
+
 app.post("/startGame", (req, res) => {
+    const wordList = ["word1", "apple", "banana", "grape", "cherry"]; // Exempel på ordlista
+    correctWord = chooseWord(wordList, 5, false); // Dynamiskt ordval när spelet startar
     startTime = Date.now();  // Start timer
-    res.status(200).json({ message: "Game started" });
+    res.status(200).json({ message: "Game started"});
 });
 
 app.get("/api/test", (req, res) => {
@@ -30,7 +34,7 @@ app.get("/api/test", (req, res) => {
 
 app.post("/api/check-guess", (req, res) => {
     const { guess } = req.body;
-    const correctWord = "word1"; //Temporary word, should be replaced with a random word from the list
+    // const correctWord = "word1"; //Temporary word, should be replaced with a random word from the list
     console.log("Mottagen gissning", guess);
 
     if (!guess) {
@@ -38,7 +42,6 @@ app.post("/api/check-guess", (req, res) => {
     }
 
     const feedback = controllGuess(guess, correctWord);
-
     res.json(feedback);
 });
 
@@ -55,23 +58,22 @@ app.get("/", (req, res) => {
 // });
 
 app.post("/endGame", (req, res) => {
-    let endTime = Date.now();
-    let timeTaken = endTime - startTime; 
+    const endTime = Date.now();
+    const timeTaken = endTime - startTime; 
     res.status(200).json({ message: `Game over. Time taken: ${timeTaken}ms`, timeTaken });
 });
 
 // JSON test highscore 
 app.post("/submitHighscore", (req, res) => {
-    const { name, time, guesses, wordLenght, specialLetters } = req.body;
-
+    const { name, time, guesses, wordLength, specialLetters } = req.body;
     let highscores = [];
+
     if (fs.existsSync("highscores.json")) {
         highscores = JSON.parse(fs.readFileSync("highscores.json"));
     }
-highscores.push({ name, time, guesses, wordLenght, specialLetters });
+highscores.push({ name, time, guesses, wordLength, specialLetters });
 
 fs.writeFileSync("highscores.json", JSON.stringify(highscores, null, 2));
-
 res.status(200).json({ message: "Highscore saved", highscores });
 });
 

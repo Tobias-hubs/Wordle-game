@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Player1",
+    "time": 1743670745861,
+    "guesses": [],
+    "specialLetters": false
+  },
+  {
+    "name": "Player1",
+    "time": 3684,
+    "guesses": [],
+    "specialLetters": false
+  },
+  {
+    "name": "Player1",
+    "time": 1743681427198,
+    "guesses": [
+      "apple"
+    ],
+    "specialLetters": false
+  }
+]
