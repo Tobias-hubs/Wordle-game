@@ -34,10 +34,10 @@ function Game() {
             return;
         }
 
-        const response = await fetch("http://localhost:5000/check-guess", {
+        const response = await fetch("http://localhost:5080/api/check-guess", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ guess, correctWord })
+            body: JSON.stringify({ guess })
         });
 
         const data = await response.json();

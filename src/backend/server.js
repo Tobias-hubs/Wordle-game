@@ -15,6 +15,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 app.use(cors());
+app.use(express.json()); 
 
 //Timer for the game
 let startTime; 
@@ -25,6 +26,20 @@ app.post("/startGame", (req, res) => {
 
 app.get("/api/test", (req, res) => {
     res.json({ message: "Hello from the server.js!" });
+});
+
+app.post("/api/check-guess", (req, res) => {
+    const { guess } = req.body;
+    const correctWord = "word1"; //Temporary word, should be replaced with a random word from the list
+    console.log("Mottagen gissning", guess);
+
+    if (!guess) {
+        return res.status(400).json({ message: "Ingen gissning angiven" });
+    }
+
+    const feedback = controllGuess(guess, correctWord);
+
+    res.json(feedback);
 });
 
 // Development
