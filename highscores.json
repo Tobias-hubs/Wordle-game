@@ -18,5 +18,19 @@
       "apple"
     ],
     "specialLetters": false
+  },
+  {
+    "name": "Player1",
+    "time": 1743755094956,
+    "guesses": [],
+    "wordLength": 5,
+    "specialLetters": false
+  },
+  {
+    "name": "Player1",
+    "time": 1743755166065,
+    "guesses": [],
+    "wordLength": 5,
+    "specialLetters": false
   }
 ]

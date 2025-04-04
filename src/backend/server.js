@@ -4,9 +4,7 @@ import express from "express";
 import cors from "cors";
 import path from "path";
 import fs from "fs";
-// import { gameLogic } from "./game/gameLogic.js";
 import { controllGuess, chooseWord } from "./game/gameLogic.js";
-// console.log(gameLogic.startGame());
 
 const app = express();
 const port = 5080;
@@ -34,8 +32,9 @@ app.get("/api/test", (req, res) => {
 
 app.post("/api/check-guess", (req, res) => {
     const { guess } = req.body;
-    // const correctWord = "word1"; //Temporary word, should be replaced with a random word from the list
+    const correctWord = "word1"; //Temporary word, should be replaced with a random word from the list
     console.log("Mottagen gissning", guess);
+    console.log("Korrekt ord är:", correctWord);
 
     if (!guess) {
         return res.status(400).json({ message: "Ingen gissning angiven" });
