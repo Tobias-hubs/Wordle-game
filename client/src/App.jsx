@@ -35,6 +35,8 @@
 // export default App
 import React from 'react';
 import {useEffect, useState} from "react";
+import Game from "./Game";
+import './App.css'
 
 function App() { 
   const [message, setMessage] = useState("Loading...");
@@ -49,10 +51,14 @@ function App() {
 
   return (
     <div>
-      <h1>Wordle-games</h1>
+      <h1>Wordle-game</h1>
         <p>Server say:{message}</p>
+        <Game />
     </div>
+    
   );
 }
 
 export default App;
+
+

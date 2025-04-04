@@ -1,0 +1,36 @@
+[
+  {
+    "name": "Player1",
+    "time": 1743670745861,
+    "guesses": [],
+    "specialLetters": false
+  },
+  {
+    "name": "Player1",
+    "time": 3684,
+    "guesses": [],
+    "specialLetters": false
+  },
+  {
+    "name": "Player1",
+    "time": 1743681427198,
+    "guesses": [
+      "apple"
+    ],
+    "specialLetters": false
+  },
+  {
+    "name": "Player1",
+    "time": 1743755094956,
+    "guesses": [],
+    "wordLength": 5,
+    "specialLetters": false
+  },
+  {
+    "name": "Player1",
+    "time": 1743755166065,
+    "guesses": [],
+    "wordLength": 5,
+    "specialLetters": false
+  }
+]
