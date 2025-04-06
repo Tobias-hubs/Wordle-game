@@ -1,28 +1,13 @@
 import Row from './Row';
-
-// function Board({ guesses, currentGuessIndex }) {
-//   return (
-//     <div className="board">
-//       {Array.from({ length: 6 }).map((_, i) => (
-//         <Row 
-//           key={i} 
-//           guess={guesses[i] || ""} 
-//           isActive={i === currentGuessIndex} 
-//         />
-//       ))}
-//     </div>
-//   );
-// }
-
-// export default Board;
 function Board({ guesses = [], feedback = [], currentGuessIndex }) {
+    const maxRows = 6;
     return (
       <div className="board">
-        {Array.from({ length: 6 }).map((_, i) => (
+        {Array.from({ length: maxRows }).map((_, i) => (
           <Row
             key={i}
             guess={guesses[i] || ""}
-            feedback={feedback[i] || []} // 🟢 Se till att detta alltid är en array
+            feedback={feedback[i] || []}
             isActive={i === currentGuessIndex}
           />
         ))}
