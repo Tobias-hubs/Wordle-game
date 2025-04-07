@@ -20,7 +20,7 @@ let startTime;
 let correctWord; 
 
 app.post("/startGame", (req, res) => {
-    const wordList = ["word1", "apple", "banana", "grape", "cherry"]; // Exempel på ordlista
+    const wordList = ["wordd", "apple", "banana", "grape", "cherry"]; // Exempel på ordlista
     correctWord = chooseWord(wordList, 5, false); // Dynamiskt ordval när spelet startar
     startTime = Date.now();  // Start timer
     res.status(200).json({ message: "Game started"});
@@ -32,7 +32,7 @@ app.get("/api/test", (req, res) => {
 
 app.post("/api/check-guess", (req, res) => {
     const { guess } = req.body;
-    const correctWord = "word1"; //Temporary word, should be replaced with a random word from the list
+    const correctWord = "wordd"; //Temporary word, should be replaced with a random word from the list
     console.log("Mottagen gissning", guess);
     console.log("Korrekt ord är:", correctWord);
 

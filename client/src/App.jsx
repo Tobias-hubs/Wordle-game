@@ -22,7 +22,8 @@ function App() {
       <h1>Wordle-game</h1>
         <p>Server say:{message}</p>
         <Game />
-        <Board />
+        {/* <Board /> */}
+        
     </div>
     
   );
