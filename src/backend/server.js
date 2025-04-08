@@ -32,7 +32,7 @@ app.get("/api/test", (req, res) => {
 
 app.post("/api/check-guess", (req, res) => {
     const { guess } = req.body;
-    const correctWord = "wordd"; //Temporary word, should be replaced with a random word from the list
+    const correctWord = "wordd"; // ! This word Communicates with frontend ,Temporary word, should be replaced with a random word from the list
     console.log("Mottagen gissning", guess);
     console.log("Korrekt ord är:", correctWord);
 
