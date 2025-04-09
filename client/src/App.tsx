@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Game from "./components/Game"; 
 import "./App.css";
-import "./board.css"; 
+import "./board.css";
+import "./keyboard.css"; 
 
 function App() {
   const [message, setMessage] = useState<string>("Loading...");

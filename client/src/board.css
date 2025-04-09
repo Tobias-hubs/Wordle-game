@@ -1,7 +1,9 @@
 .board {
     display: grid;
     gap: 8px;
+    justify-content: center;
   }
+
   
   .row {
     display: flex;
@@ -38,4 +40,4 @@
     background-color: #787c7e;
     color: white;
   }
-  
+

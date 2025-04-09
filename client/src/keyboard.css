@@ -1,0 +1,50 @@
+
+.keyboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 10px;
+  }
+  
+  .keyboard-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+  }
+  
+  .key {
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    border: 1px solid #ddd;
+    background-color: black;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+  }
+  
+  .key.correct {
+    background-color: #6aaa64; 
+    color: white;
+  }
+  
+  .key.misplaced {
+    background-color: #c9b458; 
+    color: white;
+  }
+  
+  .key.wrong {
+    background-color: #787c7e; 
+    color: white;
+  }
+  
+  .key:hover {
+    background-color: #ddd;
+  }
+  

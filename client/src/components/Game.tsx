@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Board from "./Board";
+import Keyboard from "./Keyboard"; 
 
 function Game() {
   const [guess, setGuess] = useState("");
@@ -7,6 +8,12 @@ function Game() {
   const [guesses, setGuesses] = useState<string[]>([]);
   const [gameover, setGameover] = useState(false);
   const [startTime, setStartTime] = useState<number | null>(null);
+
+  const handleKeyPress = (key: string) => {
+    if (guess.length < 5 && /^[a-z]$/i.test(key)) {
+      setGuess(prev => prev + key); // Lägg till bokstaven till gissningen
+    }
+  };
 
   const correctWord = "hello"; // Hardcoded but do not play a role now because backend works
 
@@ -82,14 +89,17 @@ function Game() {
         guesses={guesses}
         handleGuess={handleGuess}
       />
+     
 
       {!gameover ? (
-        <button onClick={handleGuess}>Submit Guess</button>
+        <button onClick={handleGuess}>Submit Guess</button> 
+        
       ) : (
         <h2>You Won! 🎉</h2>
       )}
 
       <button onClick={startGame}>Restart Game</button>
+      <Keyboard feedback={feedback.flat()} onKeyPress={handleKeyPress} />
     </div>
   );
 }
