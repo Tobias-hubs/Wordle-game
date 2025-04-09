@@ -19,7 +19,7 @@
     height: 40px;
     margin: 5px;
     border: 1px solid #ddd;
-    background-color: black;
+    background-color: #000000;
     font-size: 18px;
     cursor: pointer;
     display: flex;
@@ -42,6 +42,11 @@
   .key.wrong {
     background-color: #787c7e; 
     color: white;
+  }
+
+  .key.special {
+    width: 70px;
+    background-color: #000000;
   }
   
   .key:hover {

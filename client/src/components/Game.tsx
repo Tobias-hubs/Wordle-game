@@ -11,11 +11,15 @@ function Game() {
 
   const handleKeyPress = (key: string) => {
     if (guess.length < 5 && /^[a-z]$/i.test(key)) {
-      setGuess(prev => prev + key); // Lägg till bokstaven till gissningen
+      setGuess(prev => prev + key); 
     }
   };
 
-  const correctWord = "hello"; // Hardcoded but do not play a role now because backend works
+  const handleBackspace = () => {
+    setGuess(prev => prev.slice(0, -1)); 
+  };
+
+  const correctWord = ""; // Hardcoded but do not play a role now because backend works
 
   const startGame = () => {
     setGuess("");
@@ -99,7 +103,10 @@ function Game() {
       )}
 
       <button onClick={startGame}>Restart Game</button>
-      <Keyboard feedback={feedback.flat()} onKeyPress={handleKeyPress} />
+      <button onClick={submitHighscore}>Submit Highscore</button> 
+      <Keyboard feedback={feedback.flat()} onKeyPress={handleKeyPress} 
+      onBackspace={handleBackspace}
+      onEnter={handleGuess}/>
     </div>
   );
 }
