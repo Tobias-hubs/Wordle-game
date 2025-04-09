@@ -17,9 +17,9 @@ export function controllGuess(guess, correctWord) {
         if(feedback[i].result === null) {
             const letter = guess[i];
             if (correctWord.includes(letter)) {
-                feedback[i].result = "missplaced";
+                feedback[i].result = "misplaced";
             } else {
-                feedback[i].result = "incorrect";
+                feedback[i].result = "wrong";
         }
       } 
     }   
