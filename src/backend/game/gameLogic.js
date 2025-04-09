@@ -32,7 +32,7 @@ export function controllGuess(guess, correctWord) {
    
 }
 
-export function chooseWord(wordList, length, specialLetters)   {
+export function chooseWord(wordList, length, allowRepeats)   {
 
     let validWords = wordList.filter(word => word.length === length);
     
@@ -41,7 +41,7 @@ export function chooseWord(wordList, length, specialLetters)   {
         return `There are no words with ${length} letters`; 
     }
 
-    if (!specialLetters) {
+    if (!allowRepeats) {
        validWords = validWords.filter(word => new Set(word).size === word.length);
         
     }

@@ -12,6 +12,7 @@ type BoardProps = {
   guesses: string[];
   currentGuessIndex: number;
   handleGuess: () => void;
+  wordLength: number; 
 };
 
 function Board({
@@ -20,23 +21,24 @@ function Board({
   feedback,
   guesses,
   currentGuessIndex,
-  handleGuess,
+  handleGuess, 
+  wordLength,
 }: BoardProps) {
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       const key = e.key.toLowerCase();
-      if (/^[a-z]$/.test(key) && guess.length < 5) {
+      if (/^[a-z]$/.test(key) && guess.length < wordLength) {
         setGuess((prev) => prev + key);
       } else if (key === "backspace") {
         setGuess((prev) => prev.slice(0, -1));
-      } else if (key === "enter" && guess.length === 5) {
+      } else if (key === "enter" && guess.length === wordLength) {
         handleGuess();
       }
     };
 
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [guess, handleGuess]);
+  }, [guess, wordLength, handleGuess]);
 
   return (
     <div className="board">

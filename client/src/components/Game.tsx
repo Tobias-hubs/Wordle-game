@@ -8,6 +8,36 @@ function Game() {
   const [guesses, setGuesses] = useState<string[]>([]);
   const [gameover, setGameover] = useState(false);
   const [startTime, setStartTime] = useState<number | null>(null);
+  const [wordLength, setWordLength] = useState(5); // Ordets längd, initialt 5
+  const [allowRepeats, setAllowRepeats] = useState<boolean>(false);  // Upprepning av bokstäver
+
+  const handleWordLengthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setWordLength(Number(e.target.value)); // Uppdatera ordlängden
+  };
+
+
+
+  const startGame = async () => {
+    setGuess("");
+    setFeedback([]);
+    setGuesses([]);
+    setGameover(false);
+    setStartTime(Date.now());
+
+    try {
+      const response = await fetch("http://localhost:5080/startGame", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ wordLength, allowRepeats }), // Skicka ordlängd till backend och upprepning 
+      });
+      const data = await response.json();
+      console.log(data.message);  // För att verifiera att spelet startades
+    } catch (error) {
+      console.error("Fel vid start av spelet:", error);
+      alert("Kunde inte starta spelet.");
+    }
+  };
+  
 
   const handleKeyPress = (key: string) => {
     if (guess.length < 5 && /^[a-z]$/i.test(key)) {
@@ -19,19 +49,11 @@ function Game() {
     setGuess(prev => prev.slice(0, -1)); 
   };
 
-  const correctWord = ""; // Hardcoded but do not play a role now because backend works
-
-  const startGame = () => {
-    setGuess("");
-    setFeedback([]);
-    setGuesses([]);
-    setGameover(false);
-    setStartTime(Date.now());
-  };
+  
 
   const handleGuess = async () => {
-    if (guess.length !== 5) {
-      alert("Gissningen måste vara 5 bokstäver.");
+    if (guess.length !== wordLength) {
+      alert("Gissningen måste vara ${wordLength} bokstäver.");
       return;
     }
 
@@ -72,8 +94,8 @@ function Game() {
           name: "Player1",
           time: timeTaken,
           guesses,
-          wordLength: correctWord.length,
-          specialLetters: false,
+          wordLength: wordLength,        // Should be dynamic based on the word length
+          allowRepeats: false,
         }),
       });
     } catch (error) {
@@ -85,6 +107,31 @@ function Game() {
     <div>
       <h1>Guess the Word</h1>
 
+      <div>
+        <label htmlFor="wordLength">Choose word length: </label>
+        <input 
+          id="wordLength" 
+          type="number" 
+          value={wordLength} 
+          onChange={handleWordLengthChange} 
+          min="3" 
+          max="10" 
+        />
+      </div>
+ {/* Val av om upprepning av bokstäver tillåts */}
+ <div>
+        <label>
+          <input
+            type="checkbox"
+            checked={allowRepeats}
+            onChange={() => setAllowRepeats(!allowRepeats)}
+          />
+          Tillåt upprepning av bokstäver
+        </label>
+      </div>
+
+      <button onClick={startGame}>Start Game with {wordLength}-letter word</button>
+
       <Board
         guess={guess}
         setGuess={setGuess}
@@ -92,6 +139,7 @@ function Game() {
         currentGuessIndex={guesses.length}
         guesses={guesses}
         handleGuess={handleGuess}
+        wordLength={wordLength}
       />
      
 

@@ -20,8 +20,12 @@ let startTime;
 let correctWord; 
 
 app.post("/startGame", (req, res) => {
-    const wordList = ["wordd", "apple", "banana", "grape", "cherry"]; // Exempel på ordlista
-    correctWord = chooseWord(wordList, 5, false); // Dynamiskt ordval när spelet startar
+    // const wordList = ["wordd", "apple", "banana", "grape", "cherry"]; // Exempel på ordlista
+    // correctWord = chooseWord(wordList, 5, false); // Dynamiskt ordval när spelet startar
+    const wordLength = req.body.wordLength || 5; //  få ordlängden från frontend
+    const allowRepeats = req.body.allowRepeats ?? false; 
+    const wordList = ["wordd", "apple", "banana", "grape", "cherry"]; // Ordlista
+    correctWord = chooseWord(wordList, wordLength, allowRepeats);  // Välj ett ord baserat på längd
     startTime = Date.now();  // Start timer
     res.status(200).json({ message: "Game started"});
 });
@@ -32,12 +36,17 @@ app.get("/api/test", (req, res) => {
 
 app.post("/api/check-guess", (req, res) => {
     const { guess } = req.body;
-    const correctWord = "wordd"; // ! This word Communicates with frontend ,Temporary word, should be replaced with a random word from the list
+    // const correctWord = "wordd"; // ! This word Communicates with frontend ,Temporary word, should be replaced with a random word from the list
     console.log("Mottagen gissning", guess);
     console.log("Korrekt ord är:", correctWord);
 
     if (!guess) {
         return res.status(400).json({ message: "Ingen gissning angiven" });
+    }
+
+    if (!correctWord) {
+        console.error("Korrekt ord är inte definierat!");
+        return res.status(500).json({ message: "Spelet har inte startats korrekt. Korrekt ord saknas." });
     }
 
     const feedback = controllGuess(guess, correctWord);
@@ -64,13 +73,13 @@ app.post("/endGame", (req, res) => {
 
 // JSON test highscore 
 app.post("/submitHighscore", (req, res) => {
-    const { name, time, guesses, wordLength, specialLetters } = req.body;
+    const { name, time, guesses, wordLength, allowRepeats } = req.body;
     let highscores = [];
 
     if (fs.existsSync("highscores.json")) {
         highscores = JSON.parse(fs.readFileSync("highscores.json"));
     }
-highscores.push({ name, time, guesses, wordLength, specialLetters });
+highscores.push({ name, time, guesses, wordLength, allowRepeats });
 
 fs.writeFileSync("highscores.json", JSON.stringify(highscores, null, 2));
 res.status(200).json({ message: "Highscore saved", highscores });
