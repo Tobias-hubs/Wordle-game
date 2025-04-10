@@ -9,10 +9,11 @@ type RowProps = {
   guess?: string;
   feedback?: FeedbackItem[];
   isActive?: boolean;
+  wordLength: number;
 };
 
-function Row({ guess = "", feedback = [], isActive = false }: RowProps) {
-  const letters = guess.padEnd(5).split("");
+function Row({ guess = "", feedback = [], isActive = false, wordLength}: RowProps) {
+  const letters = guess.padEnd(wordLength).split("");
 
   return (
     <div className={`row ${isActive ? "active" : ""}`}>

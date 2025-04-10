@@ -1021,5 +1021,498 @@
       "wordd"
     ],
     "wordLength": 5
+  },
+  {
+    "name": "Player1",
+    "time": 3173,
+    "guesses": [],
+    "wordLength": 5
+  },
+  {
+    "name": "Player1",
+    "time": 6627,
+    "guesses": [
+      "grape"
+    ],
+    "wordLength": 5
+  },
+  {
+    "name": "Player1",
+    "time": 1027,
+    "guesses": [],
+    "wordLength": 5
+  },
+  {
+    "name": "Player1",
+    "time": 6436,
+    "guesses": [
+      "wordl"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 11230,
+    "guesses": [
+      "wordd",
+      "grape"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 4111,
+    "guesses": [
+      "wordd"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 12686,
+    "guesses": [
+      "wordd"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 2748,
+    "guesses": [
+      "wordd"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 2987,
+    "guesses": [
+      "wordd"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 8735,
+    "guesses": [
+      "grape"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 4825,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 2853,
+    "guesses": [
+      "wordd"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 2821,
+    "guesses": [
+      "wordd"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 2632,
+    "guesses": [
+      "wordd"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 3510,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 3466,
+    "guesses": [
+      "wordd"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 37165,
+    "guesses": [
+      "banana",
+      "grapee"
+    ],
+    "wordLength": 6,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 41522,
+    "guesses": [
+      "banana",
+      "grapee",
+      "cherry"
+    ],
+    "wordLength": 6,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 11267,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 11759,
+    "guesses": [
+      "grape"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 12758,
+    "guesses": [
+      "grape"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 13151,
+    "guesses": [
+      "grape"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 13313,
+    "guesses": [
+      "grape"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 13777,
+    "guesses": [
+      "grape"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 13923,
+    "guesses": [
+      "grape"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 14099,
+    "guesses": [
+      "grape"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 14488,
+    "guesses": [
+      "grape"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 14824,
+    "guesses": [
+      "grape"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 15547,
+    "guesses": [
+      "grape"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 16190,
+    "guesses": [
+      "grape"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 3443,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 2735,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 2021,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 2072,
+    "guesses": [
+      "grape"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 2575,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 3181,
+    "guesses": [
+      "grape"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 8933,
+    "guesses": [
+      "banan"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 13179,
+    "guesses": [
+      "banan",
+      "grape"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 1829,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 3318,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 1967,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 1985,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 3982,
+    "guesses": [
+      "grape"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 2913,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 6798,
+    "guesses": [
+      "grape"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 1944,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 2497,
+    "guesses": [
+      "apple"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 1451,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 2389,
+    "guesses": [],
+    "wordLength": 6,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 4257,
+    "guesses": [
+      "banana"
+    ],
+    "wordLength": 6,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 5543,
+    "guesses": [],
+    "wordLength": 6,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 2538,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 2197,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 2975,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 3690,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 14979,
+    "guesses": [
+      "banana",
+      "eeeeee",
+      "grapes"
+    ],
+    "wordLength": 6,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 59942,
+    "guesses": [
+      "banana",
+      "eeeeee",
+      "grapes",
+      "python"
+    ],
+    "wordLength": 6,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 13629,
+    "guesses": [
+      "banana",
+      "enterp"
+    ],
+    "wordLength": 6,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 1295,
+    "guesses": [],
+    "wordLength": 4,
+    "allowRepeats": false
   }
 ]

@@ -24,7 +24,7 @@ app.post("/startGame", (req, res) => {
     // correctWord = chooseWord(wordList, 5, false); // Dynamiskt ordval när spelet startar
     const wordLength = req.body.wordLength || 5; //  få ordlängden från frontend
     const allowRepeats = req.body.allowRepeats ?? false; 
-    const wordList = ["wordd", "apple", "banana", "grape", "cherry"]; // Ordlista
+    const wordList = ["wordd", "apple", "banana", "grape", "cherry", "python", "word"]; // Ordlista
     correctWord = chooseWord(wordList, wordLength, allowRepeats);  // Välj ett ord baserat på längd
     startTime = Date.now();  // Start timer
     res.status(200).json({ message: "Game started"});
