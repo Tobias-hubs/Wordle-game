@@ -1514,5 +1514,30 @@
     "guesses": [],
     "wordLength": 4,
     "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 2876,
+    "guesses": [],
+    "wordLength": 4,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 7450,
+    "guesses": [
+      "word"
+    ],
+    "wordLength": 4,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 7070,
+    "guesses": [
+      "words"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
   }
 ]

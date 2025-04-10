@@ -116,20 +116,26 @@ function Game() {
       console.error("Fel vid highscore-inskickning:", error);
     }
   };
-
-  const handleGlobalKeydown = (event: KeyboardEvent) => {
-    console.log("Tangent tryckt:", event.key);
-    if (event.key === "Enter" && !gameStarted) {
-      startGame();
-      // Ta bort lyssnaren efter att spelet har börjat
-      window.removeEventListener("keydown", handleGlobalKeydown);
-    }
-  };
   
-  // Lägg till lyssnaren endast innan spelet startar
-  if (!gameStarted) {
-    window.addEventListener("keydown", handleGlobalKeydown);
-  }
+// To make sure enter key works to for starting the game
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      console.log("Tangent tryckt:", event.key);
+      if (event.key === "Enter" && !gameStarted) {
+        startGame();
+      }
+    };
+  
+    // Lägg till lyssnaren när spelet inte har startat
+    if (!gameStarted) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+  
+    // Ta bort lyssnaren när komponenten unmountas eller spelets status ändras
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [gameStarted]); // Kör om varje gång `gameStarted` ändras
 
   return (
     <div>
