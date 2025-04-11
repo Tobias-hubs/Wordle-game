@@ -6,11 +6,17 @@ import path from "path";
 import fs from "fs";
 import { controllGuess, chooseWord } from "./game/gameLogic.js";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const rawWordData = fs.readFileSync(path.join(__dirname, "words_dictionary.json"));
+const allWordsObj = JSON.parse(rawWordData); // Detta är ett objekt med ord som nycklar
+const allWords = Object.keys(allWordsObj);
+
 const app = express();
 const port = 5080;
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+
 
 app.use(cors());
 app.use(express.json()); 
@@ -19,15 +25,26 @@ app.use(express.json());
 let startTime; 
 let correctWord; 
 
+// app.post("/startGame", (req, res) => {
+//     // const wordList = ["wordd", "apple", "banana", "grape", "cherry"]; // Exempel på ordlista
+//     // correctWord = chooseWord(wordList, 5, false); // Dynamiskt ordval när spelet startar
+//     const wordLength = req.body.wordLength || 5; //  få ordlängden från frontend
+//     const allowRepeats = req.body.allowRepeats ?? false; 
+//     const wordList = ["wordd", "apple", "banana", "grape", "cherry", "python", "word"]; // Ordlista
+//     correctWord = chooseWord(wordList, wordLength, allowRepeats);  // Välj ett ord baserat på längd
+//     startTime = Date.now();  // Start timer
+//     res.status(200).json({ message: "Game started"});
+// });
+
 app.post("/startGame", (req, res) => {
-    // const wordList = ["wordd", "apple", "banana", "grape", "cherry"]; // Exempel på ordlista
-    // correctWord = chooseWord(wordList, 5, false); // Dynamiskt ordval när spelet startar
-    const wordLength = req.body.wordLength || 5; //  få ordlängden från frontend
-    const allowRepeats = req.body.allowRepeats ?? false; 
-    const wordList = ["wordd", "apple", "banana", "grape", "cherry", "python", "word"]; // Ordlista
-    correctWord = chooseWord(wordList, wordLength, allowRepeats);  // Välj ett ord baserat på längd
-    startTime = Date.now();  // Start timer
-    res.status(200).json({ message: "Game started"});
+    const wordLength = req.body.wordLength || 5;
+    const allowRepeats = req.body.allowRepeats ?? false;
+
+    correctWord = chooseWord(allWords, wordLength, allowRepeats);
+    console.log("Valt ord:", correctWord); // Logga det valda ordet
+    startTime = Date.now();
+
+    res.status(200).json({ message: "Game started" });
 });
 
 app.get("/api/test", (req, res) => {
