@@ -1710,5 +1710,170 @@
     ],
     "wordLength": 4,
     "allowRepeats": true
+  },
+  {
+    "name": "Player1",
+    "time": 12669,
+    "guesses": [
+      "wordse"
+    ],
+    "wordLength": 6,
+    "allowRepeats": true
+  },
+  {
+    "name": "Player1",
+    "time": 7159,
+    "guesses": [
+      "burses"
+    ],
+    "wordLength": 6,
+    "allowRepeats": true
+  },
+  {
+    "name": "Player1",
+    "time": 14089,
+    "guesses": [
+      "wordse"
+    ],
+    "wordLength": 6,
+    "allowRepeats": true
+  },
+  {
+    "name": "Player1",
+    "time": 83222,
+    "guesses": [
+      "wordse",
+      "fixgig"
+    ],
+    "wordLength": 6,
+    "allowRepeats": true
+  },
+  {
+    "name": "Player1",
+    "time": 6855,
+    "guesses": [],
+    "wordLength": 6,
+    "allowRepeats": true
+  },
+  {
+    "name": "Player1",
+    "time": 6403,
+    "guesses": [
+      "ensil"
+    ],
+    "wordLength": 5,
+    "allowRepeats": true
+  },
+  {
+    "name": "Player1",
+    "time": 4654,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": true
+  },
+  {
+    "name": "Player1",
+    "time": 4008,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 10591,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 4952,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 4012,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": true
+  },
+  {
+    "name": "Player1",
+    "time": 5581,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": true
+  },
+  {
+    "name": "Player1",
+    "time": 6329,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 4640,
+    "guesses": [],
+    "wordLength": 4,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 3100,
+    "guesses": [],
+    "wordLength": 4,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 3260,
+    "guesses": [],
+    "wordLength": 4,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 4225,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 5366,
+    "guesses": [],
+    "wordLength": 8,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 5366,
+    "guesses": [],
+    "wordLength": 9,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 9987,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 6813,
+    "guesses": [],
+    "wordLength": 6,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 6228,
+    "guesses": [],
+    "wordLength": 8,
+    "allowRepeats": false
   }
 ]

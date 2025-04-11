@@ -172,7 +172,7 @@ function Game() {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [gameStarted]); // Kör om varje gång `gameStarted` ändras
+  }, [gameStarted, wordLength]); // Kör om varje gång `gameStarted` ändras
 
   return (
     <div>
