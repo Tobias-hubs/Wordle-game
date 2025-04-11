@@ -29,6 +29,7 @@ function Game() {
     setGameover(false);
     setStartTime(Date.now());
     setGameStarted(true);
+    console.log("Spelet startade vid:", Date.now()); 
 
     try {
       const response = await fetch("http://localhost:5080/startGame", {
@@ -98,11 +99,15 @@ function Game() {
 
 
   const getGameTime = async (): Promise<number | null> => {
+    console.log("Skickar startTime till servern:", startTime);
     try {
       const response = await fetch("http://localhost:5080/endGame", { 
         method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ startTime })
       });
       const data = await response.json();
+      console.log("Sluttid från servern:", data.timeTaken);
       return data.timeTaken;
     } catch (error) {
       console.error("Kunde inte hämta sluttid:", error);
@@ -172,7 +177,7 @@ function Game() {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [gameStarted, wordLength]); // Kör om varje gång `gameStarted` ändras
+  }, [gameStarted, wordLength]); // Updates the gameStarted state and wordLength state
 
   return (
     <div>
