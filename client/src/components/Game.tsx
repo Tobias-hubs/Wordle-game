@@ -96,26 +96,63 @@ function Game() {
     }
   };
 
-  const submitHighscore = async () => {
-    const endTime = Date.now();
-    const timeTaken = startTime ? endTime - startTime : 0;
 
+  const getGameTime = async (): Promise<number | null> => {
+    try {
+      const response = await fetch("http://localhost:5080/endGame", { 
+        method: "POST",
+      });
+      const data = await response.json();
+      return data.timeTaken;
+    } catch (error) {
+      console.error("Kunde inte hämta sluttid:", error);
+      return null;
+    }
+  };
+  
+  const submitHighscore = async () => {
+    const timeTaken = await getGameTime();
+    if (timeTaken === null) return;
+  
     try {
       await fetch("http://localhost:5080/submitHighscore", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: "Player1",
+          name: "Player1", // ändra till inputfält om du vill
           time: timeTaken,
           guesses,
-          wordLength: wordLength,        // Should be dynamic based on the word length
-          allowRepeats: false,
+          wordLength,
+          allowRepeats,
         }),
       });
     } catch (error) {
       console.error("Fel vid highscore-inskickning:", error);
     }
   };
+  
+
+
+  // const submitHighscore = async () => {
+  //   const endTime = Date.now();
+  //   const timeTaken = startTime ? endTime - startTime : 0;
+
+  //   try {
+  //     await fetch("http://localhost:5080/submitHighscore", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({
+  //         name: "Player1",
+  //         time: timeTaken,
+  //         guesses,
+  //         wordLength: wordLength,        // Should be dynamic based on the word length
+  //         allowRepeats: false,
+  //       }),
+  //     });
+  //   } catch (error) {
+  //     console.error("Fel vid highscore-inskickning:", error);
+  //   }
+  // };
   
 // To make sure enter key works to for starting the game
   useEffect(() => {
