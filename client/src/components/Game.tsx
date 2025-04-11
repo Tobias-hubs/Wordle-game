@@ -119,7 +119,7 @@ function Game() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: "Player1", // ändra till inputfält om du vill
+          name: "Player1", // ändra till inputfält 
           time: timeTaken,
           guesses,
           wordLength,

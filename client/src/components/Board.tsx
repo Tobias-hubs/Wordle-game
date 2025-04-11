@@ -48,7 +48,7 @@ function Board({
           guess={i === currentGuessIndex ? guess : guesses[i] || ""}
           feedback={feedback[i] || []}
           isActive={i === currentGuessIndex}
-          wordLength={wordLength} // Passa ordlängd till Row-komponenten
+          wordLength={wordLength} // Pass wordlength to Row
         />
       ))}
     </div>
