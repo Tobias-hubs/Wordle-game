@@ -12,6 +12,9 @@ function Game() {
   const [startTime, setStartTime] = useState<number | null>(null);
   const [wordLength, setWordLength] = useState(5); // Ordets längd, initialt 5
   const [allowRepeats, setAllowRepeats] = useState<boolean>(false);  // Upprepning av bokstäver
+  const [playerName, setPlayerName] = useState<string>(""); // Spelarens namn
+  const [correctWord, setCorrectWord] = useState<string | null>(null); // Right word from backend (only when endGame is called)
+  
 
   const handleWordLengthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -52,6 +55,8 @@ function Game() {
     setGuesses([]);
     setGameover(false);
     setStartTime(null);
+    setCorrectWord(null); // Återställ rätt ord vid ny start? 
+  
   };
 
   const handleKeyPress = (key: string) => {
@@ -68,8 +73,12 @@ function Game() {
 
   const handleGuess = async () => {
     if (guess.length !== wordLength) {
-      alert("Gissningen måste vara ${wordLength} bokstäver.");
+      alert("Gissningen måste vara ${wordLength} bokstäver.");  // Denna bör tas bort eftersom de ska hanteras i endgame 
       return;
+    }
+
+    if (gameover || guesses.length >= 6) {
+      return;  // Makes sure the game not allows more than 6 guesses
     }
 
     try {
@@ -87,6 +96,11 @@ function Game() {
 
       if (data.isGameOver) {
         setGameover(true);
+        if (data.correctWord) {
+          setCorrectWord(data.correctWord);// Spara det rätta ordet från servern
+          alert(`Spelet är över. Rätt ord var: ${data.correctWord}`);
+
+        }
         await submitHighscore();
       }
 
@@ -117,6 +131,11 @@ function Game() {
   
   const submitHighscore = async () => {
     const timeTaken = await getGameTime();
+    
+    if (!gameover || !correctWord || guess !== correctWord) {
+      return; // Dont send highscore if game is not over or the guess is not correct
+    }
+
     if (timeTaken === null) return;
   
     try {
@@ -124,7 +143,7 @@ function Game() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: "Player1", // ändra till inputfält 
+          name: playerName, // ändra till inputfält 
           time: timeTaken,
           guesses,
           wordLength,
@@ -195,6 +214,20 @@ function Game() {
         />
       </div>
        )}
+
+      {/* Spelarens namn */}  
+{!gameStarted && (       // !gameStarted 
+  <div>
+    <label htmlFor="playerName">Spelarnamn: </label>
+    <input
+      id="playerName"
+      type="text"
+      value={playerName}
+      onChange={(e) => setPlayerName(e.target.value)}
+    />
+  </div>
+)}
+
  {/* Val av om upprepning av bokstäver tillåts */}
  {!gameStarted && (
  <div>
@@ -233,7 +266,19 @@ function Game() {
       )}
 
       <button onClick={restartGame}>Restart Game</button>
-      <button onClick={submitHighscore}>Submit Highscore</button> 
+
+      {gameover && guesses.includes(correctWord!) && (
+            <div>
+              <input
+                type="text"
+                placeholder="Enter your name"
+                value={playerName}
+                onChange={(e) => setPlayerName(e.target.value)}
+              />
+      <button onClick={submitHighscore}
+      disabled={!playerName}>Submit Highscore</button> 
+        </div>
+          )}
       <Keyboard feedback={feedback.flat()} onKeyPress={handleKeyPress} 
       onBackspace={handleBackspace}
       onEnter={handleGuess}/>

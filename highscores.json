@@ -1900,5 +1900,103 @@
     "guesses": [],
     "wordLength": 5,
     "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 8589,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 16547,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 4202,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 6534,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 28432,
+    "guesses": [
+      "touge"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 2878,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 20633,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 1998,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 4327,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 4965,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 33689,
+    "guesses": [],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Player1",
+    "time": 44156,
+    "guesses": [
+      "words"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "playerName",
+    "time": 16710,
+    "guesses": [
+      "words",
+      "milha"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
   }
 ]
