@@ -1998,5 +1998,35 @@
     ],
     "wordLength": 5,
     "allowRepeats": false
+  },
+  {
+    "name": "Tobias",
+    "time": 51532,
+    "guesses": [
+      "words",
+      "dwyka"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Tobias",
+    "time": 52438,
+    "guesses": [
+      "words",
+      "dwyka"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Tobias",
+    "time": 21724,
+    "guesses": [
+      "words",
+      "gizmo"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
   }
 ]

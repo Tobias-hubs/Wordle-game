@@ -14,7 +14,7 @@ function Game() {
   const [allowRepeats, setAllowRepeats] = useState<boolean>(false);  // Upprepning av bokstäver
   const [playerName, setPlayerName] = useState<string>(""); // Spelarens namn
   const [correctWord, setCorrectWord] = useState<string | null>(null); // Right word from backend (only when endGame is called)
-  
+  const [hasWon, setHasWon] = useState(false);
 
   const handleWordLengthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -98,10 +98,10 @@ function Game() {
         setGameover(true);
         if (data.correctWord) {
           setCorrectWord(data.correctWord);// Spara det rätta ordet från servern
-          alert(`Spelet är över. Rätt ord var: ${data.correctWord}`);
+          // alert(`Spelet är över. Rätt ord var: ${data.correctWord}`);
 
         }
-        await submitHighscore();
+        // await submitHighscore();
       }
 
       setGuess("");
@@ -120,6 +120,7 @@ function Game() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ startTime })
       });
+
       const data = await response.json();
       console.log("Sluttid från servern:", data.timeTaken);
       return data.timeTaken;
@@ -132,7 +133,8 @@ function Game() {
   const submitHighscore = async () => {
     const timeTaken = await getGameTime();
     
-    if (!gameover || !correctWord || guess !== correctWord) {
+    if (!gameover || !correctWord || !guesses.includes(correctWord)) {
+      alert("Du måste vinna spelet innan du skickar en highscore.");
       return; // Dont send highscore if game is not over or the guess is not correct
     }
 
@@ -198,6 +200,24 @@ function Game() {
     };
   }, [gameStarted, wordLength]); // Updates the gameStarted state and wordLength state
 
+
+  useEffect(() => {
+    console.log("checking win status:", {
+      gameover,
+      correctWord,
+      guesses,
+      match: correctWord && guesses.includes(correctWord)
+    });
+    if (
+      gameover &&
+      correctWord &&
+      guesses.some(g => g.toLowerCase() === correctWord.toLowerCase())
+    ) {
+      setHasWon(true);
+    }
+  }, [gameover, correctWord, guesses]);
+  
+
   return (
     <div>
       <h1>Guess the Word</h1>
@@ -214,19 +234,6 @@ function Game() {
         />
       </div>
        )}
-
-      {/* Spelarens namn */}  
-{!gameStarted && (       // !gameStarted 
-  <div>
-    <label htmlFor="playerName">Spelarnamn: </label>
-    <input
-      id="playerName"
-      type="text"
-      value={playerName}
-      onChange={(e) => setPlayerName(e.target.value)}
-    />
-  </div>
-)}
 
  {/* Val av om upprepning av bokstäver tillåts */}
  {!gameStarted && (
@@ -267,7 +274,7 @@ function Game() {
 
       <button onClick={restartGame}>Restart Game</button>
 
-      {gameover && guesses.includes(correctWord!) && (
+      {hasWon && (
             <div>
               <input
                 type="text"

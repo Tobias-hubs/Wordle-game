@@ -67,8 +67,13 @@ app.post("/api/check-guess", (req, res) => {
     }
 
     const feedback = controllGuess(guess, correctWord);
+    if (feedback.isGameOver) {
+        console.log("Spelet är över! Korrekt ord var:", correctWord);
+    
+    res.json({...feedback, correctWord}); // Skicka tillbaka feedback och korrekt ord till frontend
+    } else { 
     res.json(feedback);
-});
+}});
 
 // Development
 app.get("/", (req, res) => {
