@@ -60,12 +60,14 @@ function Game() {
   };
 
   const handleKeyPress = (key: string) => {
+    if (gameover) return;
     if (guess.length < wordLength && /^[a-z]$/i.test(key)) {
       setGuess(prev => prev + key); 
     }
   };
 
   const handleBackspace = () => {
+    if (gameover) return;
     setGuess(prev => prev.slice(0, -1)); 
   };
 
@@ -98,8 +100,6 @@ function Game() {
         setGameover(true);
         if (data.correctWord) {
           setCorrectWord(data.correctWord);// Spara det rätta ordet från servern
-          // alert(`Spelet är över. Rätt ord var: ${data.correctWord}`);
-
         }
         // await submitHighscore();
       }
@@ -183,6 +183,7 @@ function Game() {
 // To make sure enter key works to for starting the game
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
+      if (gameover) return;
       console.log("Tangent tryckt:", event.key);
       if (event.key === "Enter" && !gameStarted) {
         startGame();
@@ -198,8 +199,7 @@ function Game() {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [gameStarted, wordLength]); // Updates the gameStarted state and wordLength state
-
+  }, [gameStarted, wordLength, gameover]); // Updates the states
 
   useEffect(() => {
     console.log("checking win status:", {
@@ -262,6 +262,7 @@ function Game() {
         guesses={guesses}
         handleGuess={handleGuess}
         wordLength={wordLength}
+        gameover={gameover} // Pass the gameover state to Board
       />
      
 

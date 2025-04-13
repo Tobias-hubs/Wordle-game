@@ -2028,5 +2028,116 @@
     ],
     "wordLength": 5,
     "allowRepeats": false
+  },
+  {
+    "name": "Sawda",
+    "time": 16567,
+    "guesses": [
+      "bantu"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Sawda",
+    "time": 17835,
+    "guesses": [
+      "bantu"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Sawda",
+    "time": 17984,
+    "guesses": [
+      "bantu"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Sawda",
+    "time": 19321,
+    "guesses": [
+      "bantu"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Sawda",
+    "time": 19926,
+    "guesses": [
+      "bantu"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Sawda",
+    "time": 20474,
+    "guesses": [
+      "bantu"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Sawda",
+    "time": 21036,
+    "guesses": [
+      "bantu"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Sawda",
+    "time": 24934,
+    "guesses": [
+      "bantu"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Sawda",
+    "time": 25108,
+    "guesses": [
+      "bantu"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "dsadsadsda",
+    "time": 15720,
+    "guesses": [
+      "words",
+      "axion"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "dsadsadsda",
+    "time": 25425,
+    "guesses": [
+      "words",
+      "axion"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "dsadsadsda",
+    "time": 27477,
+    "guesses": [
+      "words",
+      "axion"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
   }
 ]

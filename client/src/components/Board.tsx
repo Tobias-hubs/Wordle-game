@@ -13,6 +13,7 @@ type BoardProps = {
   currentGuessIndex: number;
   handleGuess: () => void;
   wordLength: number; 
+  gameover: boolean; // Added gameover prop
 };
 
 function Board({
@@ -23,8 +24,11 @@ function Board({
   currentGuessIndex,
   handleGuess, 
   wordLength,
+  gameover
 }: BoardProps) {
   useEffect(() => {
+    if (gameover) return;
+
     const handleKey = (e: KeyboardEvent) => {
       const key = e.key.toLowerCase();
       if (/^[a-z]$/.test(key) && guess.length < wordLength) {
@@ -38,7 +42,7 @@ function Board({
 
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [guess, wordLength, handleGuess]);
+  }, [guess, wordLength, handleGuess, gameover]);
 
   return (
     <div className="board">
