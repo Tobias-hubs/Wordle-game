@@ -15,6 +15,8 @@ function Game() {
   const [playerName, setPlayerName] = useState<string>(""); // Spelarens namn
   const [correctWord, setCorrectWord] = useState<string | null>(null); // Right word from backend (only when endGame is called)
   const [hasWon, setHasWon] = useState(false);
+  const [timeTaken, setTimeTaken] = useState<number | null>(null);
+  const [highscoreSubmitted, setHighscoreSubmitted] = useState(false);
 
   const handleWordLengthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -55,8 +57,11 @@ function Game() {
     setGuesses([]);
     setGameover(false);
     setStartTime(null);
-    setCorrectWord(null); // Återställ rätt ord vid ny start? 
-  
+    setCorrectWord(null); // Återställ rätt ord vid ny start
+    setHasWon(false);
+    setTimeTaken(null); 
+    setPlayerName(""); // Återställ spelarens namn vid ny start
+    setHighscoreSubmitted(false); // Återställ highscore-knappen
   };
 
   const handleKeyPress = (key: string) => {
@@ -101,7 +106,10 @@ function Game() {
         if (data.correctWord) {
           setCorrectWord(data.correctWord);// Spara det rätta ordet från servern
         }
+        if (data.correctWord?.toLowerCase() === guess.toLowerCase()) {
+          setHasWon(true);   // Spelaren har vunnit
         // await submitHighscore();
+        }
       }
 
       setGuess("");
@@ -113,16 +121,20 @@ function Game() {
 
 
   const getGameTime = async (): Promise<number | null> => {
+    if (!startTime || !correctWord) return null;
+    const endTime = Date.now();
+    const calculatedTime = Math.floor((endTime - startTime) / 1000);
     console.log("Skickar startTime till servern:", startTime);
     try {
       const response = await fetch("http://localhost:5080/endGame", { 
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ startTime })
+        body: JSON.stringify({ startTime, endTime, correctWord }), // Skicka start- och sluttid till servern
       });
 
       const data = await response.json();
       console.log("Sluttid från servern:", data.timeTaken);
+
       return data.timeTaken;
     } catch (error) {
       console.error("Kunde inte hämta sluttid:", error);
@@ -131,9 +143,9 @@ function Game() {
   };
   
   const submitHighscore = async () => {
-    const timeTaken = await getGameTime();
+    // const timeTaken = await getGameTime();
     
-    if (!gameover || !correctWord || !guesses.includes(correctWord)) {
+    if (!gameover || !hasWon || !correctWord || !guesses.includes(correctWord)) {
       alert("Du måste vinna spelet innan du skickar en highscore.");
       return; // Dont send highscore if game is not over or the guess is not correct
     }
@@ -152,6 +164,7 @@ function Game() {
           allowRepeats,
         }),
       });
+      setHighscoreSubmitted(true); // Lock button after submit
     } catch (error) {
       console.error("Fel vid highscore-inskickning:", error);
     }
@@ -216,6 +229,24 @@ function Game() {
       setHasWon(true);
     }
   }, [gameover, correctWord, guesses]);
+
+
+  useEffect(() => {
+    console.log("🚨 useEffect körs:", { hasWon, gameover, startTime, timeTaken });
+    if (hasWon && gameover && startTime  && timeTaken === null) {
+      // getGameTime(); // Hämta tiden när spelet är över och spelaren har vunnit
+      // const endTime = Date.now();
+      // setTimeTaken(Math.floor((endTime - startTime) / 1000)); // tid i sekunder
+      getGameTime()
+      .then((serverTime) => {
+        if (serverTime !== null) {
+          setTimeTaken(serverTime);
+    }
+  })
+  .catch((error) => console.error("Fel vid hämtning av verifierad tid:", error));
+}
+  }, [hasWon, gameover, startTime, timeTaken]);
+  
   
 
   return (
@@ -275,7 +306,7 @@ function Game() {
 
       <button onClick={restartGame}>Restart Game</button>
 
-      {hasWon && (
+      {hasWon && gameover &&(
             <div>
               <input
                 type="text"
@@ -284,7 +315,7 @@ function Game() {
                 onChange={(e) => setPlayerName(e.target.value)}
               />
       <button onClick={submitHighscore}
-      disabled={!playerName}>Submit Highscore</button> 
+      disabled={!playerName || highscoreSubmitted}>Submit Highscore</button> 
         </div>
           )}
       <Keyboard feedback={feedback.flat()} onKeyPress={handleKeyPress} 
