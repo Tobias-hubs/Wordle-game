@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Board from "./Board";
 import Keyboard from "./Keyboard"; 
+import GameSettings from "./gameSettings";
+import { useGameEffects } from "./useGameEffects";
+
 
 function Game() {
   const [guess, setGuess] = useState("");
@@ -76,8 +79,6 @@ function Game() {
     setGuess(prev => prev.slice(0, -1)); 
   };
 
-  
-
   const handleGuess = async () => {
     if (guess.length !== wordLength) {
       alert("Gissningen måste vara ${wordLength} bokstäver.");  // Denna bör tas bort eftersom de ska hanteras i endgame 
@@ -118,7 +119,6 @@ function Game() {
       alert("Kunde inte kontakta servern.");
     }
   };
-
 
   const getGameTime = async (): Promise<number | null> => {
     if (!startTime || !correctWord) return null;
@@ -169,120 +169,36 @@ function Game() {
       console.error("Fel vid highscore-inskickning:", error);
     }
   };
+
+useGameEffects({
+  gameStarted,
+  wordLength,
+  gameover,
+  startGame,
+  correctWord,
+  guesses,
+  hasWon,
+  startTime,
+  timeTaken,
+  setHasWon,
+  getGameTime,
+  setTimeTaken,
+});
   
-
-
-  // const submitHighscore = async () => {
-  //   const endTime = Date.now();
-  //   const timeTaken = startTime ? endTime - startTime : 0;
-
-  //   try {
-  //     await fetch("http://localhost:5080/submitHighscore", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({
-  //         name: "Player1",
-  //         time: timeTaken,
-  //         guesses,
-  //         wordLength: wordLength,        // Should be dynamic based on the word length
-  //         allowRepeats: false,
-  //       }),
-  //     });
-  //   } catch (error) {
-  //     console.error("Fel vid highscore-inskickning:", error);
-  //   }
-  // };
-  
-// To make sure enter key works to for starting the game
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (gameover) return;
-      console.log("Tangent tryckt:", event.key);
-      if (event.key === "Enter" && !gameStarted) {
-        startGame();
-      }
-    };
-  
-    // Lägg till lyssnaren när spelet inte har startat
-    if (!gameStarted) {
-      window.addEventListener("keydown", handleKeyDown);
-    }
-  
-    // Ta bort lyssnaren när komponenten unmountas eller spelets status ändras
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [gameStarted, wordLength, gameover]); // Updates the states
-
-  useEffect(() => {
-    console.log("checking win status:", {
-      gameover,
-      correctWord,
-      guesses,
-      match: correctWord && guesses.includes(correctWord)
-    });
-    if (
-      gameover &&
-      correctWord &&
-      guesses.some(g => g.toLowerCase() === correctWord.toLowerCase())
-    ) {
-      setHasWon(true);
-    }
-  }, [gameover, correctWord, guesses]);
-
-
-  useEffect(() => {
-    console.log("🚨 useEffect körs:", { hasWon, gameover, startTime, timeTaken });
-    if (hasWon && gameover && startTime  && timeTaken === null) {
-      // getGameTime(); // Hämta tiden när spelet är över och spelaren har vunnit
-      // const endTime = Date.now();
-      // setTimeTaken(Math.floor((endTime - startTime) / 1000)); // tid i sekunder
-      getGameTime()
-      .then((serverTime) => {
-        if (serverTime !== null) {
-          setTimeTaken(serverTime);
-    }
-  })
-  .catch((error) => console.error("Fel vid hämtning av verifierad tid:", error));
-}
-  }, [hasWon, gameover, startTime, timeTaken]);
-  
-  
-
   return (
     <div>
       <h1>Guess the Word</h1>
-      {!gameStarted && (
-      <div>
-        <label htmlFor="wordLength">Choose word length: </label>
-        <input 
-          id="wordLength" 
-          type="number" 
-          value={String(wordLength)} 
-          onChange={handleWordLengthChange} 
-          min="3" 
-          max="10" 
-        />
-      </div>
-       )}
-
- {/* Val av om upprepning av bokstäver tillåts */}
- {!gameStarted && (
- <div>
-        <label>
-          <input
-            type="checkbox"
-            checked={allowRepeats}
-            onChange={() => setAllowRepeats(!allowRepeats)}
-          />
-          Tillåt upprepning av bokstäver
-        </label>
-      </div>
+ 
+{!gameStarted && (
+  <GameSettings 
+    wordLength={wordLength}
+    allowRepeats={allowRepeats}
+    handleWordLengthChange={handleWordLengthChange}
+    setAllowRepeats={setAllowRepeats}
+    startGame={startGame}
+  />
 )}
-       {!gameStarted && (
-      <button onClick={startGame}>Start Game with {wordLength}-letter word</button>
-      )}
-     
+
       {gameStarted && (
   <>
       <Board
@@ -296,7 +212,6 @@ function Game() {
         gameover={gameover} // Pass the gameover state to Board
       />
      
-
       {!gameover ? (
         <button onClick={handleGuess}>Submit Guess</button> 
         

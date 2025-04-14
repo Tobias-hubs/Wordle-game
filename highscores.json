@@ -2591,5 +2591,35 @@
     ],
     "wordLength": 5,
     "allowRepeats": false
+  },
+  {
+    "name": "Tobias",
+    "time": 8761,
+    "guesses": [
+      "words",
+      "grein"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Tobias",
+    "time": 11237,
+    "guesses": [
+      "words",
+      "grimy"
+    ],
+    "wordLength": 5,
+    "allowRepeats": false
+  },
+  {
+    "name": "Tobias",
+    "time": 7602,
+    "guesses": [
+      "words",
+      "girba"
+    ],
+    "wordLength": 5,
+    "allowRepeats": true
   }
 ]

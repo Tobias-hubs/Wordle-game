@@ -47,9 +47,9 @@ app.post("/startGame", (req, res) => {
     res.status(200).json({ message: "Game started" });
 });
 
-app.get("/api/test", (req, res) => {
-    res.json({ message: "Hello from the server.js!" });
-});
+// app.get("/api/test", (req, res) => {
+//     res.json({ message: "Hello from the server.js!" });
+// });
 
 app.post("/api/check-guess", (req, res) => {
     const { guess } = req.body;
