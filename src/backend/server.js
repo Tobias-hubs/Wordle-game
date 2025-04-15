@@ -5,6 +5,17 @@ import cors from "cors";
 import path from "path";
 import fs from "fs";
 import { controllGuess, chooseWord } from "./game/gameLogic.js";
+import mongoose from "mongoose";
+import Highscore from "./models/Highscore.js"; // Import the Highscore model
+
+
+
+const mongoUri = "mongodb://localhost:27017/HighscoreList"; 
+mongoose
+  .connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("Ansluten till MongoDB"))
+  .catch((err) => console.error("Fel vid anslutning till MongoDB:", err));
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -78,19 +89,41 @@ app.post("/endGame", (req, res) => {
 });
 
 // JSON test highscore 
-app.post("/submitHighscore", (req, res) => {
+
+// app.post("/submitHighscore", (req, res) => {
+//     const { name, time, guesses, wordLength, allowRepeats } = req.body;
+//     let highscores = [];
+
+//     if (fs.existsSync("highscores.json")) {
+//         highscores = JSON.parse(fs.readFileSync("highscores.json"));
+//     }
+// highscores.push({ name, time, guesses, wordLength, allowRepeats });
+
+// fs.writeFileSync("highscores.json", JSON.stringify(highscores, null, 2));
+// res.status(200).json({ message: "Highscore saved", highscores });
+// });
+
+// MongoDB highscore
+app.post("/submitHighscore", async (req, res) => {
     const { name, time, guesses, wordLength, allowRepeats } = req.body;
-    let highscores = [];
-
-    if (fs.existsSync("highscores.json")) {
-        highscores = JSON.parse(fs.readFileSync("highscores.json"));
+  
+    try {
+      const newHighscore = new Highscore({
+        name,
+        time,
+        guesses,
+        wordLength,
+        allowRepeats,
+      });
+  
+      const savedHighscore = await newHighscore.save();
+      res.status(200).json({ message: "Highscore saved", highscore: savedHighscore });
+    } catch (error) {
+      console.error("Fel vid sparning av highscore:", error);
+      res.status(500).json({ message: "Fel vid sparning av highscore" });
     }
-highscores.push({ name, time, guesses, wordLength, allowRepeats });
-
-fs.writeFileSync("highscores.json", JSON.stringify(highscores, null, 2));
-res.status(200).json({ message: "Highscore saved", highscores });
-});
-
+  });
+  
 
 app.listen(port, () => {
     console.log(`Server is running on port http://localhost:${port}`);
