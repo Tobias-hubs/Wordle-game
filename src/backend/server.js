@@ -6,11 +6,17 @@ import path from "path";
 import fs from "fs";
 import { controllGuess, chooseWord } from "./game/gameLogic.js";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const rawWordData = fs.readFileSync(path.join(__dirname, "words_dictionary.json"));
+const allWordsObj = JSON.parse(rawWordData); // Object with words as keys 
+const allWords = Object.keys(allWordsObj);
+
 const app = express();
 const port = 5080;
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+
 
 app.use(cors());
 app.use(express.json()); 
@@ -20,19 +26,18 @@ let startTime;
 let correctWord; 
 
 app.post("/startGame", (req, res) => {
-    const wordList = ["word1", "apple", "banana", "grape", "cherry"]; // Exempel på ordlista
-    correctWord = chooseWord(wordList, 5, false); // Dynamiskt ordval när spelet startar
-    startTime = Date.now();  // Start timer
-    res.status(200).json({ message: "Game started"});
-});
+    const wordLength = req.body.wordLength || 5;
+    const allowRepeats = req.body.allowRepeats ?? false;
 
-app.get("/api/test", (req, res) => {
-    res.json({ message: "Hello from the server.js!" });
+    correctWord = chooseWord(allWords, wordLength, allowRepeats);
+    console.log("Valt ord:", correctWord); // console.log choosen word
+    startTime = Date.now();
+
+    res.status(200).json({ message: "Game started" });
 });
 
 app.post("/api/check-guess", (req, res) => {
     const { guess } = req.body;
-    const correctWord = "word1"; //Temporary word, should be replaced with a random word from the list
     console.log("Mottagen gissning", guess);
     console.log("Korrekt ord är:", correctWord);
 
@@ -40,9 +45,19 @@ app.post("/api/check-guess", (req, res) => {
         return res.status(400).json({ message: "Ingen gissning angiven" });
     }
 
+    if (!correctWord) {
+        console.error("Korrekt ord är inte definierat!");
+        return res.status(500).json({ message: "Spelet har inte startats korrekt. Korrekt ord saknas." });
+    }
+
     const feedback = controllGuess(guess, correctWord);
+    if (feedback.isGameOver) {
+        console.log("Spelet är över! Korrekt ord var:", correctWord);
+    
+    res.json({...feedback, correctWord}); // Send back feedback and correct word to frontend 
+    } else { 
     res.json(feedback);
-});
+}});
 
 // Development
 app.get("/", (req, res) => {
@@ -64,13 +79,13 @@ app.post("/endGame", (req, res) => {
 
 // JSON test highscore 
 app.post("/submitHighscore", (req, res) => {
-    const { name, time, guesses, wordLength, specialLetters } = req.body;
+    const { name, time, guesses, wordLength, allowRepeats } = req.body;
     let highscores = [];
 
     if (fs.existsSync("highscores.json")) {
         highscores = JSON.parse(fs.readFileSync("highscores.json"));
     }
-highscores.push({ name, time, guesses, wordLength, specialLetters });
+highscores.push({ name, time, guesses, wordLength, allowRepeats });
 
 fs.writeFileSync("highscores.json", JSON.stringify(highscores, null, 2));
 res.status(200).json({ message: "Highscore saved", highscores });

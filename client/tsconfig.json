@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+      "target": "es5",                               // Målet är ES5 för att säkerställa kompatibilitet
+      "lib": ["dom", "dom.iterable", "esnext"],      // Inkludera DOM och ESNext-funktioner
+      "allowJs": true,                               // Tillåt JavaScript-filer också
+      "skipLibCheck": true,                          // Hoppa över typkontroll av bibliotek
+      "esModuleInterop": true,                       // Tillåt import av CommonJS-moduler som ES-moduler
+      "allowSyntheticDefaultImports": true,          // Tillåt standardimport av moduler
+      "strict": true,                                // Aktivera strikt typkontroll
+      "forceConsistentCasingInFileNames": true,      // Säkerställ konsekvent filnamn
+      "module": "esnext",                            // Använd ESNext-moduler
+      "moduleResolution": "node",                    // Modulupplösning som i Node.js
+      "resolveJsonModule": true,                     // Tillåt import av JSON-moduler
+      "jsx": "react-jsx"                             // Använd den nya JSX-kompilatorn
+    },
+    "include": [
+      "src/**/*"                                     // Inkludera alla filer i src-mappen i client
+    ],
+    "exclude": [
+      "node_modules"                                 // Uteslut node_modules
+    ]
+  }
+  

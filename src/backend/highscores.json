@@ -1,9 +1,0 @@
-[
-    {
-        "name": "Tobias",
-        "time": 120000,
-        "guesses": ["word1", "word2"],
-        "wordLength": 5,
-        "specialLetters": true
-    }
-]

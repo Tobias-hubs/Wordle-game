@@ -1,0 +1,43 @@
+.board {
+    display: grid;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  
+  .row {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .cell {
+    visibility: visible;
+    width: 60px;
+    height: 60px;
+    border: 2px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    background-color: black;
+    color: white;
+    font-weight: bold; 
+    
+  }
+  
+  .cell.correct {
+    background-color: #6aaa64;
+    color: white;
+  }
+  
+  .cell.misplaced {
+    background-color: #c9b458;
+    color: white;
+  }
+  
+  .cell.wrong {
+    background-color: #787c7e;
+    color: white;
+  }
+
