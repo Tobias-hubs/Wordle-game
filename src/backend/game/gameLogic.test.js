@@ -1,4 +1,3 @@
-// const { chooseWord, controllGuess } = require('./game/gameLogic.js');
 import { chooseWord, controllGuess } from './gameLogic.js';
 
 

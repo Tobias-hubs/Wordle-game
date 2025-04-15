@@ -1,10 +1,8 @@
 import { useState } from "react";
-import { useEffect } from "react";
 import Board from "./Board";
 import Keyboard from "./Keyboard"; 
 import GameSettings from "./gameSettings";
 import { useGameEffects } from "./useGameEffects";
-
 
 function Game() {
   const [guess, setGuess] = useState("");
@@ -13,9 +11,9 @@ function Game() {
   const [gameover, setGameover] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
   const [startTime, setStartTime] = useState<number | null>(null);
-  const [wordLength, setWordLength] = useState(5); // Ordets längd, initialt 5
-  const [allowRepeats, setAllowRepeats] = useState<boolean>(false);  // Upprepning av bokstäver
-  const [playerName, setPlayerName] = useState<string>(""); // Spelarens namn
+  const [wordLength, setWordLength] = useState(5); // Starting length at 5 
+  const [allowRepeats, setAllowRepeats] = useState<boolean>(false);  // Repeating of letters 
+  const [playerName, setPlayerName] = useState<string>(""); // Player name 
   const [correctWord, setCorrectWord] = useState<string | null>(null); // Right word from backend (only when endGame is called)
   const [hasWon, setHasWon] = useState(false);
   const [timeTaken, setTimeTaken] = useState<number | null>(null);
@@ -23,10 +21,9 @@ function Game() {
 
   const handleWordLengthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    // setWordLength(Number(e.target.value)); // Uppdatera ordlängden
-      // Kontrollera att värdet endast innehåller siffror
+
   if (/^\d*$/.test(value)) { 
-    setWordLength(Number(value)); // Uppdatera om det är ett giltigt numeriskt värde
+    setWordLength(Number(value)); // Only allow numbers
   }
 };
 
@@ -43,10 +40,10 @@ function Game() {
       const response = await fetch("http://localhost:5080/startGame", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ wordLength, allowRepeats }), // Skicka ordlängd till backend och upprepning 
+        body: JSON.stringify({ wordLength, allowRepeats }), // Send choices to backend  
       });
       const data = await response.json();
-      console.log(data.message);  // För att verifiera att spelet startades
+      console.log(data.message);  // Verify game started
     } catch (error) {
       console.error("Fel vid start av spelet:", error);
       alert("Kunde inte starta spelet.");
@@ -60,11 +57,11 @@ function Game() {
     setGuesses([]);
     setGameover(false);
     setStartTime(null);
-    setCorrectWord(null); // Återställ rätt ord vid ny start
+    setCorrectWord(null); // Reset correct word when restart
     setHasWon(false);
     setTimeTaken(null); 
-    setPlayerName(""); // Återställ spelarens namn vid ny start
-    setHighscoreSubmitted(false); // Återställ highscore-knappen
+    setPlayerName(""); // Reset playername when restart 
+    setHighscoreSubmitted(false); // Restart submit higscore button
   };
 
   const handleKeyPress = (key: string) => {
@@ -81,7 +78,7 @@ function Game() {
 
   const handleGuess = async () => {
     if (guess.length !== wordLength) {
-      alert("Gissningen måste vara ${wordLength} bokstäver.");  // Denna bör tas bort eftersom de ska hanteras i endgame 
+      alert("Gissningen måste vara ${wordLength} bokstäver.");  // Should be removed, should handle in endgame 
       return;
     }
 
@@ -105,11 +102,10 @@ function Game() {
       if (data.isGameOver) {
         setGameover(true);
         if (data.correctWord) {
-          setCorrectWord(data.correctWord);// Spara det rätta ordet från servern
+          setCorrectWord(data.correctWord);// Save correct word from backend 
         }
         if (data.correctWord?.toLowerCase() === guess.toLowerCase()) {
-          setHasWon(true);   // Spelaren har vunnit
-        // await submitHighscore();
+          setHasWon(true);   // Player has won 
         }
       }
 
@@ -129,7 +125,7 @@ function Game() {
       const response = await fetch("http://localhost:5080/endGame", { 
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ startTime, endTime, correctWord }), // Skicka start- och sluttid till servern
+        body: JSON.stringify({ startTime, endTime, correctWord }), // Send start and finish time to backend
       });
 
       const data = await response.json();
@@ -143,7 +139,6 @@ function Game() {
   };
   
   const submitHighscore = async () => {
-    // const timeTaken = await getGameTime();
     
     if (!gameover || !hasWon || !correctWord || !guesses.includes(correctWord)) {
       alert("Du måste vinna spelet innan du skickar en highscore.");
@@ -157,7 +152,7 @@ function Game() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: playerName, // ändra till inputfält 
+          name: playerName, // Name input for highscore
           time: timeTaken,
           guesses,
           wordLength,

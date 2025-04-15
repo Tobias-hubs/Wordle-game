@@ -36,7 +36,7 @@ const GameSettings: React.FC<GameSettingsProps> = ({
             checked={allowRepeats}
             onChange={() => setAllowRepeats(!allowRepeats)}
           />
-          Tillåt upprepning av bokstäver
+          Allow repeating letters
         </label>
       </div>
       
