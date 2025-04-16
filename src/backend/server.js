@@ -27,6 +27,20 @@ const allWords = Object.keys(allWordsObj);
 const app = express();
 const port = 5080;
 
+//EJS template engine
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
+//SSR route
+app.get("/highscores", async (req, res) => {
+  try {
+    const highscores = await Highscore.find().sort({ time: 1 });
+    res.render("highscore", { highscores });
+  } catch (error) {
+    console.error("Fel vid hämtning av highscores:", error);
+    res.status(500).send("Ett fel inträffade vid hämtning av highscores.");
+  }
+});
 
 
 app.use(cors());
