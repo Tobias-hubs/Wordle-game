@@ -42,6 +42,14 @@ app.get("/highscores", async (req, res) => {
   }
 });
 
+//Public folder for static files
+app.use(express.static(path.join(__dirname, "public")));
+
+
+app.get("/about", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/about.html"));
+});
+
 
 app.use(cors());
 app.use(express.json()); 

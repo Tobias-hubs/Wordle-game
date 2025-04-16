@@ -3,20 +3,13 @@ import Game from "./components/Game";
 import "./App.css";
 import "./board.css";
 import "./keyboard.css"; 
+import Header from "./components/Navigation"; // Import Navigation component
 
 function App() {
-  // const [message, setMessage] = useState<string>("Loading...");
-
-  // useEffect(() => {
-  //   console.log("Fetching data from the server...");
-  //   fetch("http://localhost:5080/api/test")
-  //     .then((response) => response.json())
-  //     .then((data) => setMessage(data.message))
-  //     .catch((error) => console.error("There was an error!", error));
-  // }, []);
 
   return (
-    <div>
+    <div> 
+      <Header /> {/* Include Navigation component */}
       <h1>Wordle-game</h1>
       <Game />
     </div>

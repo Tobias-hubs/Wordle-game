@@ -4,6 +4,7 @@ import Keyboard from "./Keyboard";
 import GameSettings from "./gameSettings";
 import { useGameEffects } from "./useGameEffects";
 
+
 function Game() {
   const [guess, setGuess] = useState("");
   const [feedback, setFeedback] = useState<any[][]>([]);
@@ -159,7 +160,8 @@ function Game() {
           allowRepeats,
         }),
       });
-      setHighscoreSubmitted(true); // Lock button after submit
+      setHighscoreSubmitted(true);// Lock button after submit
+      window.location.href = "http://localhost:5080/highscores"; // Redirect to highscores page after submit 
     } catch (error) {
       console.error("Fel vid highscore-inskickning:", error);
     }
@@ -180,7 +182,7 @@ useGameEffects({
   setTimeTaken,
 });
   
-  return (
+  return ( 
     <div>
       <h1>Guess the Word</h1>
  

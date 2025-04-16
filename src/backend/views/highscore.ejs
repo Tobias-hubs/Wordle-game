@@ -2,37 +2,28 @@
 <html lang="sv">
 <head>
   <meta charset="UTF-8">
-  <title>Highscore List</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-    h1 {
-      color: #333;
-    }
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-    li {
-      margin: 10px 0;
-      padding: 10px;
-      background: #f0f0f0;
-      border-radius: 5px;
-    }
-  </style>
+  <link rel="stylesheet" href="/css/highscore.css">
+  <title>Highscores</title>
 </head>
 <body>
-  <h1>Highscore List</h1>
+  <header>
+    <nav>
+        <!-- Change href from react to / when build -->
+        <button onclick="window.location.href = 'http://localhost:5173/'">Game page</button>
+        <button onclick="window.location.href = '/about'">About page</button>
+      </nav>
+</header>
+  <h1>Highscore List 🎉</h1>
   <ul>
     <% highscores.forEach(score => { %>
       <li>
-        <strong><%= score.name %></strong> – time: <%= score.time %> ms,
-        guesses: <%= score.guesses.join(", ") %>,
-        wordLength: <%= score.wordLength %>,
-        allowRepeats: <%= score.allowRepeats %>
+        <strong><%= score.name %></strong> – <strong>Time:</strong> <%= score.time %> ms,
+        <strong>Guesses:</strong> <%= score.guesses.join(", ") %>,
+        <strong>Length of Word:</strong> <%= score.wordLength %>,
+        <strong>Repeating letters:</strong> <%= score.allowRepeats %>
       </li>
     <% }); %>
   </ul>
+
 </body>
 </html>
