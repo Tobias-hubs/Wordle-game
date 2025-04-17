@@ -31,7 +31,7 @@ const port = 5080;
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-//SSR route
+//General SSR highscore page 
 app.get("/highscores", async (req, res) => {
   try {
     const highscores = await Highscore.find().sort({ time: 1 });
@@ -39,6 +39,22 @@ app.get("/highscores", async (req, res) => {
   } catch (error) {
     console.error("Fel vid hämtning av highscores:", error);
     res.status(500).send("Ett fel inträffade vid hämtning av highscores.");
+  }
+});
+
+// Filtered SSR highscore page based on word length and allowRepeats
+app.get("/highscores/:wordLength/:allowRepeats", async (req, res) => {
+  const { wordLength, allowRepeats } = req.params;
+  try {
+    const filteredHighscores = await Highscore.find({
+      wordLength: Number(wordLength),
+      allowRepeats: allowRepeats === "true"  // konvert string to boolean
+    }).sort({ time: 1 });
+  
+    res.render("highscore", { highscores: filteredHighscores });
+  } catch (error) {
+    console.error("Fel vid hämtning av filtrerade highscores:", error);
+    res.status(500).send("Ett fel inträffade vid hämtning av filtrerade highscores.");
   }
 });
 
@@ -113,20 +129,6 @@ app.post("/endGame", (req, res) => {
     res.status(200).json({ message: `Game over. Time taken: ${timeTaken}ms`, timeTaken });
 });
 
-// JSON test highscore 
-
-// app.post("/submitHighscore", (req, res) => {
-//     const { name, time, guesses, wordLength, allowRepeats } = req.body;
-//     let highscores = [];
-
-//     if (fs.existsSync("highscores.json")) {
-//         highscores = JSON.parse(fs.readFileSync("highscores.json"));
-//     }
-// highscores.push({ name, time, guesses, wordLength, allowRepeats });
-
-// fs.writeFileSync("highscores.json", JSON.stringify(highscores, null, 2));
-// res.status(200).json({ message: "Highscore saved", highscores });
-// });
 
 // MongoDB highscore
 app.post("/submitHighscore", async (req, res) => {

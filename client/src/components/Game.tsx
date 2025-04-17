@@ -79,7 +79,7 @@ function Game() {
 
   const handleGuess = async () => {
     if (guess.length !== wordLength) {
-      alert("Gissningen måste vara ${wordLength} bokstäver.");  // Should be removed, should handle in endgame 
+      alert(`Gissningen måste vara ${wordLength} bokstäver.`);  // Should be removed, should handle in endgame 
       return;
     }
 
@@ -160,8 +160,9 @@ function Game() {
           allowRepeats,
         }),
       });
+
       setHighscoreSubmitted(true);// Lock button after submit
-      window.location.href = "http://localhost:5080/highscores"; // Redirect to highscores page after submit 
+      window.location.href = `http://localhost:5080/highscores/${wordLength}/${allowRepeats}`; // Redirect to filtered highscores page after submit 
     } catch (error) {
       console.error("Fel vid highscore-inskickning:", error);
     }
