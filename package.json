@@ -3,7 +3,9 @@
   "type": "module",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.21.2"
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "mongoose": "^8.13.2"
   },
   "devDependencies": {
     "@babel/core": "^7.26.10",
@@ -21,6 +23,8 @@
     "start": "concurrently \"npm run start-frontend\" \"npm run start-backend\"",
     "start-backend": "cross-env NODE_ENV=production node src/backend/server.js",
     "start-frontend": "cd client && npm start",
-    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --config=jest.config.js"
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --config=jest.config.js",
+    "install": "npm install --legacy-peer-deps && npm run install-client",
+    "install-client": "cd client && npm install"
   }
 }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css/highscore.css">
+  <title>Highscores</title>
+</head>
+<body>
+  <header>
+    <nav>
+        <!-- Change href from react to / when build   not http://localhost:5173-->
+        <button onclick="window.location.href = '/'">Game page</button>   
+        <button onclick="window.location.href = '/about'">About page</button>
+        <button onclick="window.location.href = '/highscores'">Highscores page</button>
+      </nav>
+</header>
+  <h1>Highscore List 🎉</h1>
+  <ul>
+    <% highscores.forEach(score => { %>
+      <li>
+        <strong><%= score.name %></strong> – <strong>Time:</strong> <%= score.time %> ms,
+        <strong>Guesses:</strong> <%= score.guesses.join(", ") %>,
+        <strong>Length of Word:</strong> <%= score.wordLength %>,
+        <strong>Repeating letters:</strong> <%= score.allowRepeats %>
+      </li>
+    <% }); %>
+  </ul>
+
+</body>
+</html>

@@ -5,6 +5,17 @@ import cors from "cors";
 import path from "path";
 import fs from "fs";
 import { controllGuess, chooseWord } from "./game/gameLogic.js";
+import mongoose from "mongoose";
+import Highscore from "./models/Highscore.js"; // Import the Highscore model
+
+
+
+const mongoUri = "mongodb://localhost:27017/HighscoreList"; 
+mongoose
+  .connect(mongoUri)
+  .then(() => console.log("Ansluten till MongoDB"))
+  .catch((err) => console.error("Fel vid anslutning till MongoDB:", err));
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -16,6 +27,44 @@ const allWords = Object.keys(allWordsObj);
 const app = express();
 const port = 5080;
 
+//EJS template engine
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
+//General SSR highscore page 
+app.get("/highscores", async (req, res) => {
+  try {
+    const highscores = await Highscore.find().sort({ time: 1 });
+    res.render("highscore", { highscores });
+  } catch (error) {
+    console.error("Fel vid hämtning av highscores:", error);
+    res.status(500).send("Ett fel inträffade vid hämtning av highscores.");
+  }
+});
+
+// Filtered SSR highscore page based on word length and allowRepeats
+app.get("/highscores/:wordLength/:allowRepeats", async (req, res) => {
+  const { wordLength, allowRepeats } = req.params;
+  try {
+    const filteredHighscores = await Highscore.find({
+      wordLength: Number(wordLength),
+      allowRepeats: allowRepeats === "true"  // konvert string to boolean
+    }).sort({ time: 1 });
+  
+    res.render("highscore", { highscores: filteredHighscores });
+  } catch (error) {
+    console.error("Fel vid hämtning av filtrerade highscores:", error);
+    res.status(500).send("Ett fel inträffade vid hämtning av filtrerade highscores.");
+  }
+});
+
+//Public folder for static files
+app.use(express.static(path.join(__dirname, "public")));
+
+
+app.get("/about", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/about.html"));
+});
 
 
 app.use(cors());
@@ -59,17 +108,20 @@ app.post("/api/check-guess", (req, res) => {
     res.json(feedback);
 }});
 
-// Development
-app.get("/", (req, res) => {
-    res.send("Hello World!");
-});
+// Production build
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static(path.join(__dirname, '../../client/dist')));
 
-// For production
-// app.use(express.static(path.join(__dirname, "../client/build")));
-
-// app.get("*", (req, res) => {
-//     res.sendFile(path.join(__dirname, "../client/build/index.html"));
+//   //game page
+//   app.get('/', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../../client/dist', 'index.html'));
 // });
+
+//   // For all other routes, send index.html
+//   app.get('*', (req, res) => {
+//       res.sendFile(path.join(__dirname, '../../client/dist', 'index.html'));
+//   });
+// }
 
 app.post("/endGame", (req, res) => {
     const endTime = Date.now();
@@ -77,20 +129,28 @@ app.post("/endGame", (req, res) => {
     res.status(200).json({ message: `Game over. Time taken: ${timeTaken}ms`, timeTaken });
 });
 
-// JSON test highscore 
-app.post("/submitHighscore", (req, res) => {
+
+// MongoDB highscore
+app.post("/submitHighscore", async (req, res) => {
     const { name, time, guesses, wordLength, allowRepeats } = req.body;
-    let highscores = [];
-
-    if (fs.existsSync("highscores.json")) {
-        highscores = JSON.parse(fs.readFileSync("highscores.json"));
+  
+    try {
+      const newHighscore = new Highscore({
+        name,
+        time,
+        guesses,
+        wordLength,
+        allowRepeats,
+      });
+  
+      const savedHighscore = await newHighscore.save();
+      res.status(200).json({ message: "Highscore saved", highscore: savedHighscore });
+    } catch (error) {
+      console.error("Fel vid sparning av highscore:", error);
+      res.status(500).json({ message: "Fel vid sparning av highscore" });
     }
-highscores.push({ name, time, guesses, wordLength, allowRepeats });
-
-fs.writeFileSync("highscores.json", JSON.stringify(highscores, null, 2));
-res.status(200).json({ message: "Highscore saved", highscores });
-});
-
+  });
+  
 
 app.listen(port, () => {
     console.log(`Server is running on port http://localhost:${port}`);
