@@ -12,7 +12,7 @@ import Highscore from "./models/Highscore.js"; // Import the Highscore model
 
 const mongoUri = "mongodb://localhost:27017/HighscoreList"; 
 mongoose
-  .connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(mongoUri)
   .then(() => console.log("Ansluten till MongoDB"))
   .catch((err) => console.error("Fel vid anslutning till MongoDB:", err));
 
@@ -92,17 +92,20 @@ app.post("/api/check-guess", (req, res) => {
     res.json(feedback);
 }});
 
-// Development
-app.get("/", (req, res) => {
-    res.send("Hello World!");
-});
+// Production build
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static(path.join(__dirname, '../../client/dist')));
 
-// For production
-// app.use(express.static(path.join(__dirname, "../client/build")));
-
-// app.get("*", (req, res) => {
-//     res.sendFile(path.join(__dirname, "../client/build/index.html"));
+//   //game page
+//   app.get('/', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../../client/dist', 'index.html'));
 // });
+
+//   // For all other routes, send index.html
+//   app.get('*', (req, res) => {
+//       res.sendFile(path.join(__dirname, '../../client/dist', 'index.html'));
+//   });
+// }
 
 app.post("/endGame", (req, res) => {
     const endTime = Date.now();

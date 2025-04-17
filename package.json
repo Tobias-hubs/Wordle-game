@@ -23,6 +23,8 @@
     "start": "concurrently \"npm run start-frontend\" \"npm run start-backend\"",
     "start-backend": "cross-env NODE_ENV=production node src/backend/server.js",
     "start-frontend": "cd client && npm start",
-    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --config=jest.config.js"
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --config=jest.config.js",
+    "install": "npm install --legacy-peer-deps && npm run install-client",
+    "install-client": "cd client && npm install"
   }
 }
