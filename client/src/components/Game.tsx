@@ -35,7 +35,6 @@ function Game() {
     setGameover(false);
     setStartTime(Date.now());
     setGameStarted(true);
-    console.log("Spelet startade vid:", Date.now()); 
 
     try {
       const response = await fetch("http://localhost:5080/startGame", {
@@ -44,9 +43,7 @@ function Game() {
         body: JSON.stringify({ wordLength, allowRepeats }), // Send choices to backend  
       });
       const data = await response.json();
-      console.log(data.message);  // Verify game started
     } catch (error) {
-      console.error("Fel vid start av spelet:", error);
       alert("Kunde inte starta spelet.");
     }
   };
@@ -95,8 +92,6 @@ function Game() {
       });
 
       const data = await response.json();
-      console.log("FEEDBACK FRÅN BACKEND:", data);
-
       setGuesses(prev => [...prev, guess]);
       setFeedback(prev => [...prev, data.feedback]);
 
@@ -112,7 +107,6 @@ function Game() {
 
       setGuess("");
     } catch (error) {
-      console.error("Fel vid gissning:", error);
       alert("Kunde inte kontakta servern.");
     }
   };
@@ -121,7 +115,6 @@ function Game() {
     if (!startTime || !correctWord) return null;
     const endTime = Date.now();
     const calculatedTime = Math.floor((endTime - startTime) / 1000);
-    console.log("Skickar startTime till servern:", startTime);
     try {
       const response = await fetch("http://localhost:5080/endGame", { 
         method: "POST",
@@ -130,11 +123,8 @@ function Game() {
       });
 
       const data = await response.json();
-      console.log("Sluttid från servern:", data.timeTaken);
-
       return data.timeTaken;
     } catch (error) {
-      console.error("Kunde inte hämta sluttid:", error);
       return null;
     }
   };
@@ -164,7 +154,6 @@ function Game() {
       setHighscoreSubmitted(true);// Lock button after submit
       window.location.href = `http://localhost:5080/highscores/${wordLength}/${allowRepeats}`; // Redirect to filtered highscores page after submit 
     } catch (error) {
-      console.error("Fel vid highscore-inskickning:", error);
     }
   };
 
