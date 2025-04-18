@@ -4,4 +4,5 @@ export default {
         '@babel/preset-react', 
       ],
 
+"plugins": ["@babel/plugin-proposal-private-methods"],
 };
