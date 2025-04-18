@@ -28,7 +28,6 @@
     "start-frontend": "cd client && npm start",
     "test": "npm run test-backend ",
     "test-backend": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest --config=jest.config.js",
-    "install": "npm install --legacy-peer-deps && npm run install-client",
-    "install-client": "cd client && npm install"
+    "postinstall": "cd client && npm install"
   }
 }
