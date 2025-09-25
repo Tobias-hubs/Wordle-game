@@ -37,7 +37,7 @@ function Game() {
     setGameStarted(true);
 
     try {
-      const response = await fetch("http://localhost:5080/startGame", {
+      const response = await fetch("https://wordle-game-k90m.onrender.com/startGame", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ wordLength, allowRepeats }), // Send choices to backend  
@@ -85,7 +85,7 @@ function Game() {
     }
 
     try {
-      const response = await fetch("http://localhost:5080/api/check-guess", {
+      const response = await fetch("https://wordle-game-k90m.onrender.com/api/check-guess", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ guess }),
@@ -116,7 +116,7 @@ function Game() {
     const endTime = Date.now();
     const calculatedTime = Math.floor((endTime - startTime) / 1000);
     try {
-      const response = await fetch("http://localhost:5080/endGame", { 
+      const response = await fetch("https://wordle-game-k90m.onrender.com/endGame", { 
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ startTime, endTime, correctWord }), // Send start and finish time to backend
@@ -139,7 +139,7 @@ function Game() {
     if (timeTaken === null) return;
   
     try {
-      await fetch("http://localhost:5080/submitHighscore", {
+      await fetch("https://wordle-game-k90m.onrender.com/submitHighscore", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -152,7 +152,7 @@ function Game() {
       });
 
       setHighscoreSubmitted(true);// Lock button after submit
-      window.location.href = `http://localhost:5080/highscores/${wordLength}/${allowRepeats}`; // Redirect to filtered highscores page after submit 
+      window.location.href = `https://wordle-game-k90m.onrender.com/highscores/${wordLength}/${allowRepeats}`; // Redirect to filtered highscores page after submit 
     } catch (error) {
     }
   };
