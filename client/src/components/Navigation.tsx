@@ -1,7 +1,9 @@
 function Header() {
     const navigateTo = (path: string) => {
         // Needs to be changed to `${path}` when build for production
-      window.location.href = `http://localhost:5080${path}`;
+      const API_BASE = "https://wordle-game-k90m.onrender.com";
+      window.location.href = `${API_BASE}${path}`;
+
     };
   
     return (
