@@ -20,7 +20,7 @@ function Game() {
   const [timeTaken, setTimeTaken] = useState<number | null>(null);
   const [highscoreSubmitted, setHighscoreSubmitted] = useState(false);
 
-  const handleWordLengthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleWordLengthChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
 
   if (/^\d*$/.test(value)) { 

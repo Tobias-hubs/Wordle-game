@@ -3,7 +3,7 @@ import React from "react";
 interface GameSettingsProps {
   wordLength: number;
   allowRepeats: boolean;
-  handleWordLengthChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleWordLengthChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   setAllowRepeats: React.Dispatch<React.SetStateAction<boolean>>;
   startGame: () => void;
 }
@@ -19,14 +19,26 @@ const GameSettings: React.FC<GameSettingsProps> = ({
     <>
       <div>
         <label htmlFor="wordLength">Choose word length: </label>
-        <input
+        {/* <input
           id="wordLength"
           type="number"
           value={String(wordLength)}
           onChange={handleWordLengthChange}
           min="3"
           max="10"
-        />
+        /> */}
+        <select
+          id="wordLength"
+          value={wordLength}
+          onChange={handleWordLengthChange}
+        >
+          <option value={3}>3 letters</option>
+          <option value={4}>4 letters</option>
+          <option value={5}>5 letters</option>
+          <option value={6}>6 letters</option>
+          <option value={7}>7 letters</option>
+          <option value={8}>8 letters</option>
+        </select>
       </div>
       
       <div>
