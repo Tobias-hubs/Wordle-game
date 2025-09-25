@@ -12,9 +12,10 @@ import Highscore from "./models/Highscore.js"; // Import the Highscore model
 if (process.env.NODE_ENV !== "test") {
 const mongoUri = process.env.MONGODB_URI; // Local mongodb://localhost:27017/HighscoreList
 mongoose
-  .connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(mongoUri)
   .then(() => console.log("Ansluten till MongoDB Atlas"))
   .catch((err) => console.error("Fel vid anslutning till MongoDB:", err));
+  console.log("Mongodb url är", process.env.MONGODB_URI);
 }
 
 const __filename = fileURLToPath(import.meta.url);
