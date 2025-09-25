@@ -10,10 +10,10 @@ import Highscore from "./models/Highscore.js"; // Import the Highscore model
 
 
 if (process.env.NODE_ENV !== "test") {
-const mongoUri = "mongodb://localhost:27017/HighscoreList"; 
+const mongoUri = "process.env.MONGODB_URI"; // Local mongodb://localhost:27017/HighscoreList
 mongoose
-  .connect(mongoUri)
-  .then(() => console.log("Ansluten till MongoDB"))
+  .connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("Ansluten till MongoDB Atlas"))
   .catch((err) => console.error("Fel vid anslutning till MongoDB:", err));
 }
 
@@ -25,7 +25,7 @@ const allWordsObj = JSON.parse(rawWordData); // Object with words as keys
 const allWords = Object.keys(allWordsObj);
 
 const app = express();
-const port = 5080;
+const port = process.env.PORT || 5080;
 
 //EJS template engine
 app.set("view engine", "ejs");
