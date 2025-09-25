@@ -21,9 +21,13 @@ mongoose
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const rawWordData = fs.readFileSync(path.join(__dirname, "words_dictionary.json"));
-const allWordsObj = JSON.parse(rawWordData); // Object with words as keys 
+const rawWordData = fs.readFileSync(path.join(__dirname, "words_filtered.json"));
+const allWordsObj = JSON.parse(rawWordData);  //Object with words as keys 
 const allWords = Object.keys(allWordsObj);
+// const allWords = JSON.parse(rawWordData);
+
+console.log("Totalt antal ord:", allWords.length);
+console.log("Exempel:", allWords.slice(0, 10));
 
 const app = express();
 const port = process.env.PORT || 5080;
@@ -74,16 +78,34 @@ let startTime;
 let correctWord; 
 
 app.post("/startGame", (req, res) => {
-    const wordLength = req.body.wordLength || 5;
-    const allowRepeats = req.body.allowRepeats ?? false;
+  const wordLength = Number(req.body.wordLength) || 5;
+  const allowRepeats = req.body.allowRepeats ?? false;
 
-    correctWord = chooseWord(allWords, wordLength, allowRepeats);
-    if (process.env.NODE_ENV !== "production") {
-      console.log("Rätt ord är:", correctWord);
-    }
-    startTime = Date.now();
+  //  Kontrollera att längden är mellan 3 och 8
+  if (wordLength < 3 || wordLength > 8) {
+    return res.status(400).json({
+      message: "Endast ordlängd mellan 3 och 8 är tillåten."
+    });
+  }
 
-    res.status(200).json({ message: "Game started" });
+  //  Filtrera ordlistan på längd
+  const possibleWords = allWords.filter(w => w.length === wordLength);
+
+  if (possibleWords.length === 0) {
+    return res.status(400).json({
+      message: `Inga ord hittades med längden ${wordLength}.`
+    });
+  }
+
+  // Välj ord från filtrerade listan
+  correctWord = chooseWord(possibleWords, wordLength, allowRepeats);
+
+  if (process.env.NODE_ENV !== "production") {
+    console.log("Rätt ord är:", correctWord);
+  }
+
+  startTime = Date.now();
+  res.status(200).json({ message: "Game started" });
 });
 
 app.post("/api/check-guess", (req, res) => {
