@@ -48,8 +48,19 @@
     width: 70px;
     background-color: #000000;
   }
-  
+
   .key:hover {
     background-color: #ddd;
   }
-  
+  /* Mobile mediaquery */
+@media (max-width: 600px) {
+  .key {
+    width: 28px;
+    height: 34px;
+    font-size: 13px;
+    margin: 2px;
+  }
+  .key.special { width: 46px; 
+  } 
+
+}

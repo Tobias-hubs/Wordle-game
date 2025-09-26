@@ -25,6 +25,15 @@
     font-weight: bold; 
     
   }
+  /* Mobile mediaquery */
+  @media (max-width: 600px) { 
+    .cell { 
+      width: 40px;
+    height: 40px;
+    font-size: 1rem;
+    }
+  }
+
   
   .cell.correct {
     background-color: #6aaa64;
